@@ -1,0 +1,138 @@
+%% ----------------------------------------------------------------
+%% Thesis.tex -- MAIN FILE (the one that you compile with LaTeX)
+%% ---------------------------------------------------------------- 
+
+% Set up the document
+\documentclass[a4paper, 11pt, openany, twoside]{Thesis}  % Use the "Thesis" style, based on the ECS Thesis style by Steve Gunn
+\graphicspath{Figures/}  % Location of the graphics files (set up for graphics to be in PDF format)
+
+% Include any extra LaTeX packages required
+\usepackage{epigraph}
+\usepackage[style=croatian]{csquotes} %todo figure out why this doesn't work with `` and ''
+\usepackage{titlesec}
+\usepackage[numbers, comma, sort&compress]{natbib} 
+\usepackage{verbatim}  % Needed for the "comment" environment to make LaTeX comments
+\hypersetup{urlcolor=brown, colorlinks=true}  % Colours hyperlinks in blue, but this can be distracting if there are many links.
+
+
+%% ----------------------------------------------------------------
+\begin{document}
+\frontmatter      % Begin Roman style (i, ii, iii, iv...) page numbering
+
+\newgeometry{margin=1in}
+% Set up the Title Page
+\title  {Прикупљање података о упису у средње школе у Србији од 2015. до 2017. године}
+\authors  {\texorpdfstring
+            {\href{luka.jovicic16@gmail.com}{Лука Јовичић}}
+            {Лука Јовичић}
+            }
+\date       {\today}
+\subject    {}
+\keywords   {}
+
+\maketitle
+%% ----------------------------------------------------------------
+
+\setstretch{1.3}  % It is better to have smaller font and larger line spacing than the other way round
+
+\fancyhead{}  % Clears all page headers and footers
+\fancyhead[LE]{\thepage}
+\fancyhead[RO]{\thepage} 
+
+\pagestyle{fancy}  % Finally, use the "fancy" page style to implement the FancyHdr headers
+
+%% ----------------------------------------------------------------
+
+% The Abstract Page
+\addtotoc{Апстракт}  % Add the "Abstract" page entry to the Contents
+\abstract{
+\addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
+
+The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+
+}
+
+\clearpage
+
+\restoregeometry
+
+%% ----------------------------------------------------------------
+\fancyhead[C]{\textit{Садржај}}
+\tableofcontents  % Write out the Table of Contents
+
+%% ----------------------------------------------------------------
+
+\cleardoublepage
+\mainmatter	  % Begin normal, numeric (1,2,3...) page numbering
+\fancyhead[C]{\textit{\thechapter\ \nameref*{ch:\thechapter}}} %ponosim se sobom života mi
+\pagestyle{fancy}  % Return the page headers back to the "fancy" style
+
+\input{Chapters/Chapter1} % Introduction
+
+\makeatletter
+    \titleformat{\part}[display] %ovo iz nekog razloga ne radi u .cls; eventualno može da se namesti da se kompajlira okej, ali i dalje prijavljuje greške
+    {\Huge\scshape\filright}
+    {\partname~\thepart:}
+    {20pt}
+    {\thispagestyle{epigraph}}
+\makeatother
+\setlength\epigraphwidth{.55\textwidth}
+
+\cleardoublepage
+\epigraphhead[450]{\epigraph{\textit{Подаци су драгоцена ствар и трајаће дуже од самих система.}}{\textsc{Тим Бернерс-Ли}, изумитељ Веба}} %to enquote, or not to enquote
+
+\part{Прикупљање података}
+
+\input{Chapters/Chapter2} % Skrepovanje
+\clearpage
+
+\input{Chapters/Chapter3} % Program
+\clearpage
+
+\input{Chapters/Chapter4} % Server
+
+\cleardoublepage
+\epigraphhead[450]{\epigraph{\textit{Капитална је грешка теоретисати без података.}}{\textsc{Шерлок Холмс}, у роману \enquote{Црвена нит}\newline(сер Артур Конан Дојл)}}
+% Druga opcija: “If we have data, let’s look at data. If all we have are opinions, let’s go with mine.” – Jim Barksdale, former Netscape CEO
+\part{Обрада података}
+
+
+\input{Chapters/Chapter5} % Direktna obrada
+\clearpage
+
+\input{Chapters/Chapter6} % Proceduralna obrada; Simulacije
+\clearpage
+
+\input{Chapters/Chapter7} % Zakljucak
+\clearpage
+
+%% ----------------------------------------------------------------
+% Now begin the Appendices, including them as separate files
+
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+
+\renewcommand{\thechapter}{A}
+\fancyhead[C]{\textit{\nameref*{ch:A}}} % zato što label ne može biti ćiriličan...
+\input{Appendices/AppendixA} % Desktop klijent
+
+\fancyhead[C]{\textit{\nameref*{ch:B}}} 
+\renewcommand{\thechapter}{Б}
+\input{Appendices/AppendixB} % Baza
+
+\fancyhead[C]{\textit{\nameref*{ch:V}}} 
+\renewcommand{\thechapter}{В}
+\input{Appendices/AppendixC} % Kod
+
+\addtocontents{toc}{\vspace{2em}}  % Add a gap in the Contents, for aesthetics
+\backmatter
+
+%% ----------------------------------------------------------------
+\label{Bibliography}
+\fancyhead[C]{\textit{Библиографија}}
+\bibliographystyle{unsrtnat}  % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+\bibliography{Bibliography}  % The references (bibliography) information are stored in the file named "Bibliography.bib"
+
+\end{document}  % The End
+%% ----------------------------------------------------------------
