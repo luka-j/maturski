@@ -13,3 +13,65 @@
 %todo još neki primeri simulacija?
 
 \section{Интерфејсовање са базом -- пример у Python-у}
+
+Једна од великих предности података који се чувају у релационој бази је универзалност приступа -- сваки озбиљнији програмски језик има библиотеке које знају како да читају податке из њих. У Python-у, користио сам \code{sqlalchemy} са \code{psycopg2} за конектовање на базу и \code{pandas} за учитавање података из базе у \code{DataFrame} којим се може манипулисати.
+
+Ако претпоставимо да се база налази на localhost-у, на уобичајеном порту (5432), да се зове \code{upisdb}, и приступа јој се са корисничким именом \code{user} и лозинком \code{pass}, код који се повезује на базу изгледа овако:
+\begin{minted}{python}
+import sqlalchemy as s
+eng = s.create_engine("postgresql+psycopg2://user:pass@localhost:5432/upisdb")
+\end{minted}
+
+док би помоћна метода која може да извршава основне врсте упита (селекцију и пројекцију) била:
+
+\begin{minted}{python}
+import pandas as pd
+def query(cols, table, where="1=1", order="id"):
+    return pd.read_sql_query("select " + cols + " from " + table + " where " 
+            + where + " order by " + order, eng)
+\end{minted}
+
+Наравно, као аргумент \code{read\_sql\_query} функцији се може проследити арбитраран SQL код. Повратна вредност ће бити \code{DataFrame}, тип података из \code{pandas} библиотеке који има бројне помоћне функције, али ако је намера вршити било какве сложеније математичке операције, препоручљиво је претворити податке у \code{numpy} низ методом \code{numpy.array(df)} где је df \code{DataFrame} због брзине. За крај, покажимо како изгледа код који исцртава хистограм општег успеха за све три генерације:
+
+\begin{minted}{python}
+import matplotlib.pyplot as plt
+def plot_histogram():
+    uc2015 = query("prosek_ukupno", "ucenici2015", "prosek_ukupno>=2")
+            ['prosek_ukupno'] #treba nam samo ova kolona
+            #pandas po difoltu vraća i indeks kao dodatnu kolonu
+    uc2016 = query("prosek_ukupno", "ucenici2016", "prosek_ukupno>=2")
+            ['prosek_ukupno']
+    uc2017 = query("prosek_ukupno", "ucenici2017", "prosek_ukupno>=2")
+            ['prosek_ukupno']
+
+    plt.hist(uc2015, bins=36, range=(2, 5), histtype='step', density=True, 
+            stacked=True, color='blue', linewidth=1.2)
+    plt.hist(uc2016, bins=36, range=(2, 5), histtype='step', density=True, 
+            stacked=True, color='green', linewidth=1.2)
+    plt.hist(uc2017, bins=36, range=(2, 5), histtype='step', density=True, 
+            stacked=True, color='red', linewidth=1.2)
+    plt.show()
+\end{minted}
+
+На овом плоту је интересантно приметити \enquote{скок} код просека 3.5 и 4.5, што су границе за виши успех. Али, оно што је још уочљивије је непропорционално велик број ученика чији је општи успех 5.0. Једноставним SQL упитом се добија и њихов конкретан проценат:
+
+\begin{minted}{sql}
+select 2017 as generacija, 
+    1.0*(select count(*) from ucenici2017 where prosek_ukupno=5) /
+        (select count(*) from ucenici2017) as "procenat 5.0" 
+union select 2016, 
+    1.0*(select count(*) from ucenici2016 where prosek_ukupno=5) /
+        (select count(*) from ucenici2016) 
+union select 2015, 
+    1.0*(select count(*) from ucenici2015 where prosek_ukupno=5) /
+        (select count(*) from ucenici2015)
+\end{minted}
+
+\begin{tabular}{c|c}
+generacija & prosek 5.0 \\ \hline
+2017 & 0.15722062603961893241 \\
+2016 & 0.16020161166773906915 \\
+2015 & 0.15755675480116976695 \\
+\end{tabular}
+
+На сличан начин се може доћи и до осталих корисних информација. Визуелизације су често моћан алат који може указати на специфичне детаље које је потребно истражити, а затим је неопходно и математички показати да је интуиција иза њих тачна.
