@@ -32,7 +32,7 @@
 \LoadClass{\baseclass}
 \newcommand\bhrule{\typeout{------------------------------------------------------------------------------}}
 
-\usepackage[inner=2cm, outer=3.5cm, top=2cm, bottom=4cm, includehead]{geometry} 
+\usepackage[inner=2cm, outer=3.5cm, top=2.2cm, bottom=4cm, headheight=13.6pt, includehead]{geometry} 
 
 \newcommand\Declaration[1]{
 \btypeout{Declaration of Authorship}
