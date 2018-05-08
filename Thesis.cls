@@ -185,7 +185,7 @@
       {\LARGE \authornames \par}
       {\large Ментор: }
       \smallskip
-      {\LARGE Ime mentora ovde \par}
+      {\LARGE Мијодраг Ђуришић \par}
       \bigskip
       \bigskip
       \bigskip
