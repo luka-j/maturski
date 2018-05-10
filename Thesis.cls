@@ -116,6 +116,7 @@
 \usepackage{rotating}
 \usepackage{listings}
 \usepackage{lstpatch}
+\graphicspath{ {images/} }
 \lstset{captionpos=b,
         frame=tb,
         basicstyle=\scriptsize\ttfamily,
