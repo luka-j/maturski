@@ -175,6 +175,7 @@
       {\large\textbf{\UNIVNAME}\par}
       \vfill
       {\huge \bf \@title \par}
+      %{\LARGE \bf - са примерима обраде - \par}
       \vfill
       {\LARGE Матурски рад \par}
       \smallskip
@@ -184,6 +185,9 @@
       {\large Ученик: }
       \smallskip
       {\LARGE \authornames \par}
+      {\large Одељење: }
+      \smallskip
+      {\LARGE 4Е \par}
       {\large Ментор: }
       \smallskip
       {\LARGE Мијодраг Ђуришић \par}
