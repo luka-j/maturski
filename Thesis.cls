@@ -32,7 +32,7 @@
 \LoadClass{\baseclass}
 \newcommand\bhrule{\typeout{------------------------------------------------------------------------------}}
 
-\usepackage[inner=2.4cm, outer=3.6cm, top=2.2cm, bottom=4cm, headheight=13.6pt, includehead]{geometry}
+\usepackage[inner=2.2cm, outer=3.6cm, top=2cm, bottom=4cm, headheight=13.6pt, includehead, showframe]{geometry}
 %\usepackage[twoside, bindingoffset=6mm, verbose, marginratio={1:2, 1:2}, textwidth=157.5mm, height=222.73mm, headheight=13.6pt, includehead]{geometry} 
 
 \newcommand\Declaration[1]{
