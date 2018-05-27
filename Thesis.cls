@@ -32,7 +32,8 @@
 \LoadClass{\baseclass}
 \newcommand\bhrule{\typeout{------------------------------------------------------------------------------}}
 
-\usepackage[inner=2cm, outer=3.5cm, top=2.2cm, bottom=4cm, headheight=13.6pt, includehead]{geometry} 
+\usepackage[inner=2.4cm, outer=3.6cm, top=2.2cm, bottom=4cm, headheight=13.6pt, includehead]{geometry}
+%\usepackage[twoside, bindingoffset=6mm, verbose, marginratio={1:2, 1:2}, textwidth=157.5mm, height=222.73mm, headheight=13.6pt, includehead]{geometry} 
 
 \newcommand\Declaration[1]{
 \btypeout{Declaration of Authorship}
@@ -155,7 +156,7 @@
                 {Математичка гимназија, Београд}}
 \UNIVERSITY  {\texorpdfstring{\href{http://mg.edu.rs/} 
                 {МАТЕМАТИЧКА ГИМНАЗИЈА}}
-                {МАТЕМАТИЧКА ГИМНАЗИЈА}}
+                {МАТЕМАТИЧКА ГИМНАЗИЈА, БЕОГРАД}}
 \renewcommand\maketitle{
   \btypeout{Title Page}
   \hypersetup{pdftitle={\@title}}
@@ -175,7 +176,7 @@
       {\large\textbf{\UNIVNAME}\par}
       \vfill
       {\huge \bf \@title \par}
-      %{\LARGE \bf - са примерима обраде - \par}
+      {\LARGE \bf са примерима обраде \par}
       \vfill
       {\LARGE Матурски рад \par}
       \smallskip
@@ -184,17 +185,16 @@
       \vfill
       {\large Ученик: }
       \smallskip
-      {\LARGE \authornames \par}
-      {\large Одељење: }
-      \smallskip
-      {\LARGE 4Е \par}
+      {\LARGE \texorpdfstring
+      	{\href{luka.jovicic16+maturski@gmail.com}{Лука Јовичић}}
+      	{Лука Јовичић}, 4E \par}
       {\large Ментор: }
       \smallskip
       {\LARGE Мијодраг Ђуришић \par}
       \bigskip
       \bigskip
       \bigskip
-      {\Large \@date \par}
+      {\Large Београд, \@date \par}
       \bigskip
     \end{center}
     \par
